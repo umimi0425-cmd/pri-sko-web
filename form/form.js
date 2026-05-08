@@ -1,9 +1,16 @@
 const LIFF_ID = 'YOUR_LIFF_ID'; // LINE DevelopersのLIFF IDに差し替える
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbw64qbX4u0Ekwt2ffA4-KiXrPmlMKOBggH1Vx6CCECUvoUCYVhQzUYf07qk5Li-VF-Jiw/exec';
 
-liff.init({ liffId: LIFF_ID }).catch(() => {
-  // LIFF外（ブラウザ直アクセス）でも動作確認できるようにエラーは無視
-});
+let lineUserId = '';
+
+liff.init({ liffId: LIFF_ID })
+  .then(() => {
+    if (liff.isLoggedIn()) return liff.getProfile();
+  })
+  .then(profile => {
+    if (profile) lineUserId = profile.userId;
+  })
+  .catch(() => {});
 
 // ── 郵便番号 → 住所自動入力 ──
 document.getElementById('zip-btn').addEventListener('click', async () => {
@@ -90,7 +97,7 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
     await fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
-      body: new URLSearchParams({ name, kana, zip, prefecture: pref, city, building, tel }),
+      body: new URLSearchParams({ name, kana, zip, prefecture: pref, city, building, tel, lineUserId }),
     });
 
     // LINEに通知（LINEアプリ内の場合のみ）
