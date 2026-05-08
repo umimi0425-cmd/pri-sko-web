@@ -1,4 +1,4 @@
-const LIFF_ID = 'YOUR_LIFF_ID'; // LINE DevelopersのLIFF IDに差し替える
+const LIFF_ID = '2010019541-j317IzH2';
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbw64qbX4u0Ekwt2ffA4-KiXrPmlMKOBggH1Vx6CCECUvoUCYVhQzUYf07qk5Li-VF-Jiw/exec';
 
 let lineUserId = '';
