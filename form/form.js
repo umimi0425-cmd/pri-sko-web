@@ -12,6 +12,16 @@ liff.init({ liffId: LIFF_ID })
   })
   .catch(() => {});
 
+// ── 注文番号生成 ──
+function generateOrderId() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const date = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}`;
+  const time = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+  const rand = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+  return `ORD-${date}-${time}-${rand}`;
+}
+
 // ── 郵便番号 → 住所自動入力 ──
 document.getElementById('zip-btn').addEventListener('click', async () => {
   const zip = document.getElementById('zip').value.replace(/-/g, '').trim();
@@ -75,6 +85,7 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
   btn.disabled = true;
   btn.textContent = '送信中...';
 
+  const orderId  = generateOrderId();
   const name     = document.getElementById('name').value.trim();
   const kana     = document.getElementById('kana').value.trim();
   const zip      = document.getElementById('zip').value.trim();
@@ -83,61 +94,73 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
   const building = document.getElementById('building').value.trim();
   const tel      = document.getElementById('tel').value.trim();
 
-  const address = building ? `${pref}${city} ${building}` : `${pref}${city}`;
+  const paymentUrl = `https://pri-sko-web.vercel.app/payment-report?order_id=${orderId}`;
 
-  const messageText =
-    `【お届け先】\n` +
-    `お名前：${name}（${kana}）\n` +
-    `郵便番号：〒${zip}\n` +
-    `住所：${address}\n` +
-    `電話番号：${tel}`;
-
+  // スプレッドシートに保存
   try {
-    // スプレッドシートに送信
     await fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
-      body: new URLSearchParams({ name, kana, zip, prefecture: pref, city, building, tel, lineUserId }),
+      body: new URLSearchParams({ orderId, name, kana, zip, prefecture: pref, city, building, tel, lineUserId }),
     });
-
-    // LINEに通知（LINEアプリ内の場合のみ）
-    if (liff.isInClient()) {
-      await liff.sendMessages([{ type: 'text', text: messageText }]);
-    }
-
-    showDone();
   } catch {
     btn.disabled = false;
     btn.textContent = 'この内容で送信する';
     alert('送信に失敗しました。もう一度お試しください。');
+    return;
   }
+
+  // LINEトークに送信（スプレッドシート保存成功後）
+  let lineSuccess = false;
+  if (liff.isInClient()) {
+    const messageText =
+      `お届け先情報を受け付けました。\n\n` +
+      `注文番号：\n${orderId}\n\n` +
+      `入金完了後は、以下のURLからご報告ください。\n${paymentUrl}`;
+    try {
+      await liff.sendMessages([{ type: 'text', text: messageText }]);
+      lineSuccess = true;
+    } catch {
+      lineSuccess = false;
+    }
+  }
+
+  showDone(orderId, paymentUrl, lineSuccess);
 });
 
 // ── 閉じるボタン ──
 document.getElementById('close-btn').addEventListener('click', () => {
-  if (liff.isInClient()) {
-    liff.closeWindow();
-  }
+  if (liff.isInClient()) liff.closeWindow();
 });
 
 // ── ヘルパー ──
 function setError(id, msg) {
   const el = document.getElementById(id);
   if (el) el.textContent = msg;
-  const fieldId = id.replace('err-', '');
-  const input = document.getElementById(fieldId);
+  const input = document.getElementById(id.replace('err-', ''));
   if (input) input.classList.add('is-error');
 }
 
 function clearError(id) {
   const el = document.getElementById(id);
   if (el) el.textContent = '';
-  const fieldId = id.replace('err-', '');
-  const input = document.getElementById(fieldId);
+  const input = document.getElementById(id.replace('err-', ''));
   if (input) input.classList.remove('is-error');
 }
 
-function showDone() {
+function showDone(orderId, paymentUrl, lineSuccess) {
+  document.getElementById('done-order-id').textContent = orderId;
+
+  if (lineSuccess) {
+    document.getElementById('done-message').textContent = '入金完了後は、LINEトークに届いたURLからご報告ください。';
+  } else {
+    document.getElementById('done-message').textContent = '入金完了後は、以下のURLからご報告ください。';
+    const link = document.getElementById('done-payment-link');
+    link.href = paymentUrl;
+    link.textContent = paymentUrl;
+    document.getElementById('done-fallback').classList.remove('hidden');
+  }
+
   document.getElementById('form-view').classList.add('hidden');
   document.getElementById('done-view').classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });

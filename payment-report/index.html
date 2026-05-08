@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>入金完了報告 | しろねこクリニック</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <p class="header-logo">しろねこクリニック</p>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 入金報告フォーム -->
+    <div id="form-view">
+      <p class="page-label">PAYMENT</p>
+      <h1 class="page-title">入金完了のご報告</h1>
+      <p class="page-desc">入金が完了しましたら、以下からご報告ください。</p>
+
+      <div class="order-box">
+        <p class="order-label">注文番号</p>
+        <p class="order-id" id="order-id-display">読み込み中...</p>
+      </div>
+
+      <form id="payment-form" novalidate>
+
+        <div class="field">
+          <label class="label" for="payment-method">お支払い方法<span class="required">必須</span></label>
+          <select class="input input-select" id="payment-method" name="paymentMethod" required>
+            <option value="">選択してください</option>
+            <option value="銀行振込">銀行振込</option>
+            <option value="クレジットカード">クレジットカード</option>
+          </select>
+          <p class="error-msg" id="err-payment-method"></p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="notes">備考<span class="optional">任意</span></label>
+          <textarea class="input input-textarea" id="notes" name="notes" placeholder="振込名義が異なる場合など、特記事項があればご記入ください。" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">入金完了を報告する</button>
+
+      </form>
+    </div>
+
+    <!-- 完了画面 -->
+    <div id="done-view" class="done-view hidden">
+      <div class="done-check">✓</div>
+      <h2 class="done-title">報告を受け付けました</h2>
+      <p class="done-text">確認次第、発送手続きを進めます。<br>しばらくお待ちください。</p>
+      <button class="btn-close" id="close-btn">閉じる</button>
+    </div>
+
+    <!-- 注文番号エラー画面 -->
+    <div id="error-view" class="done-view hidden">
+      <div class="done-check error-check">!</div>
+      <h2 class="done-title">URLが正しくありません</h2>
+      <p class="done-text">注文番号が確認できませんでした。<br>LINEトークのURLから再度アクセスしてください。</p>
+    </div>
+
+  </main>
+
+  <script src="form.js"></script>
+</body>
+</html>

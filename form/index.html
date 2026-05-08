@@ -93,8 +93,15 @@
     <!-- 完了画面 -->
     <div id="done-view" class="done-view hidden">
       <div class="done-check">✓</div>
-      <h2 class="done-title">送信完了しました</h2>
-      <p class="done-text">お届け先を受け付けました。<br>準備ができ次第、発送いたします。</p>
+      <h2 class="done-title">送信が完了しました。</h2>
+      <div class="done-order-box">
+        <p class="done-order-label">注文番号</p>
+        <p class="done-order-id" id="done-order-id"></p>
+      </div>
+      <p class="done-text" id="done-message"></p>
+      <p id="done-fallback" class="done-fallback hidden">
+        <a id="done-payment-link" class="done-payment-link" href="#"></a>
+      </p>
       <button class="btn-close" id="close-btn">閉じる</button>
     </div>
 
