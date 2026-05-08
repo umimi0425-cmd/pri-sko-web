@@ -19,37 +19,18 @@
 
   <main class="wrap">
 
-    <!-- 入金報告フォーム -->
+    <!-- 報告ボタン画面 -->
     <div id="form-view">
       <p class="page-label">PAYMENT</p>
       <h1 class="page-title">入金完了のご報告</h1>
-      <p class="page-desc">入金が完了しましたら、以下からご報告ください。</p>
+      <p class="page-desc">入金が完了しましたら、下のボタンを押してご報告ください。</p>
 
       <div class="order-box">
         <p class="order-label">注文番号</p>
         <p class="order-id" id="order-id-display">読み込み中...</p>
       </div>
 
-      <form id="payment-form" novalidate>
-
-        <div class="field">
-          <label class="label" for="payment-method">お支払い方法<span class="required">必須</span></label>
-          <select class="input input-select" id="payment-method" name="paymentMethod" required>
-            <option value="">選択してください</option>
-            <option value="銀行振込">銀行振込</option>
-            <option value="クレジットカード">クレジットカード</option>
-          </select>
-          <p class="error-msg" id="err-payment-method"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="notes">備考<span class="optional">任意</span></label>
-          <textarea class="input input-textarea" id="notes" name="notes" placeholder="振込名義が異なる場合など、特記事項があればご記入ください。" rows="3"></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit" id="submit-btn">入金完了を報告する</button>
-
-      </form>
+      <button class="btn-submit" id="report-btn">入金完了を報告する</button>
     </div>
 
     <!-- 完了画面 -->
@@ -60,7 +41,7 @@
       <button class="btn-close" id="close-btn">閉じる</button>
     </div>
 
-    <!-- 注文番号エラー画面 -->
+    <!-- URLエラー画面 -->
     <div id="error-view" class="done-view hidden">
       <div class="done-check error-check">!</div>
       <h2 class="done-title">URLが正しくありません</h2>
