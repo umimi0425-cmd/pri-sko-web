@@ -1,5 +1,5 @@
 const LIFF_ID = 'YOUR_LIFF_ID'; // LINE DevelopersのLIFF IDに差し替える
-const GAS_URL = 'YOUR_GAS_URL'; // Google Apps Script Web AppのURLに差し替える
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbw64qbX4u0Ekwt2ffA4-KiXrPmlMKOBggH1Vx6CCECUvoUCYVhQzUYf07qk5Li-VF-Jiw/exec';
 
 liff.init({ liffId: LIFF_ID }).catch(() => {
   // LIFF外（ブラウザ直アクセス）でも動作確認できるようにエラーは無視
