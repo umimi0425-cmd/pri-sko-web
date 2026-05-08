@@ -1,4 +1,5 @@
 const LIFF_ID = 'YOUR_LIFF_ID'; // LINE DevelopersのLIFF IDに差し替える
+const GAS_URL = 'YOUR_GAS_URL'; // Google Apps Script Web AppのURLに差し替える
 
 liff.init({ liffId: LIFF_ID }).catch(() => {
   // LIFF外（ブラウザ直アクセス）でも動作確認できるようにエラーは無視
@@ -85,9 +86,18 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
     `電話番号：${tel}`;
 
   try {
+    // スプレッドシートに送信
+    await fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams({ name, kana, zip, prefecture: pref, city, building, tel }),
+    });
+
+    // LINEに通知（LINEアプリ内の場合のみ）
     if (liff.isInClient()) {
       await liff.sendMessages([{ type: 'text', text: messageText }]);
     }
+
     showDone();
   } catch {
     btn.disabled = false;
