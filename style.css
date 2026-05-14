@@ -5,19 +5,20 @@
 }
 
 :root {
-  --primary: #9a7860;
-  --primary-light: #c4a882;
-  --brown-dark: #5a3c28;
-  --brown-mid: #7a5c44;
-  --line-green: #06c755;
-  --bg-warm: #faf6f0;
-  --bg-beige: #f0e4d4;
-  --bg-gray: #f8f5f0;
-  --text-dark: #3d2b1f;
-  --text-medium: #6b4c38;
-  --text-light: #9e8268;
-  --text-muted: #c4a882;
-  --border: #e8ddd0;
+  --primary: #938271;
+  --primary-light: #c4b8aa;
+  --brown-dark: #4a3828;
+  --brown-mid: #6b5040;
+  --line-green: #21512d;
+  --cta-light: #e8f0e8;
+  --bg-warm: #fcfaf7;
+  --bg-beige: #f7f3ee;
+  --bg-gray: #f7f3ee;
+  --text-dark: #54473a;
+  --text-medium: #807467;
+  --text-light: #938271;
+  --text-muted: #a89e93;
+  --border: #dcd4ca;
 }
 
 html {
@@ -49,7 +50,7 @@ footer {
   justify-content: space-between;
   height: 56px;
   padding: 0 20px;
-  background: linear-gradient(to right, #d4bfa0, #9a7860);
+  background: linear-gradient(to right, #ddd4c8, #b8a898);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -80,7 +81,7 @@ footer {
 
 /* ── Hero ── */
 .hero {
-  background: linear-gradient(160deg, #faf6f0 0%, #f0e4d4 100%);
+  background: linear-gradient(160deg, #fcfaf7 0%, #f0ebe3 100%);
   padding: 48px 24px;
   display: flex;
   flex-direction: column;
@@ -113,7 +114,7 @@ footer {
   background: #fff;
   border-radius: 20px;
   padding: 24px 40px;
-  box-shadow: 0 6px 24px rgba(154, 120, 96, 0.2);
+  box-shadow: 0 6px 24px rgba(147, 130, 113, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,7 +188,7 @@ footer {
 
 /* ── Badges ── */
 .badges {
-  background: linear-gradient(135deg, #8b6e58 0%, #6b4c38 100%);
+  background: linear-gradient(135deg, #7a6658 0%, #5a4838 100%);
   padding: 28px 20px;
   display: flex;
   flex-direction: column;
@@ -395,7 +396,7 @@ footer {
 
 /* ── Flow ── */
 .flow {
-  background: linear-gradient(160deg, #faf2e8 0%, #f0e4d4 100%);
+  background: linear-gradient(160deg, #f7f3ee 0%, #ede6dc 100%);
   padding: 48px 24px;
   display: flex;
   flex-direction: column;
@@ -442,7 +443,7 @@ footer {
 
 /* ── Pricing ── */
 .pricing {
-  background: linear-gradient(160deg, #7a5c44 0%, #5a3c28 100%);
+  background: linear-gradient(160deg, #6b5040 0%, #4a3428 100%);
   padding: 48px 24px;
   display: flex;
   flex-direction: column;
@@ -455,7 +456,7 @@ footer {
 }
 
 .trial-card {
-  background: linear-gradient(135deg, #c4a882 0%, #9a7860 100%);
+  background: linear-gradient(135deg, #c4b8aa 0%, #938271 100%);
   border-radius: 16px;
   padding: 28px 24px;
   display: flex;
@@ -579,7 +580,7 @@ footer {
 
 /* ── Bottom CTA ── */
 .cta {
-  background: linear-gradient(160deg, #faf6f0 0%, #f0e4d4 100%);
+  background: linear-gradient(160deg, #fcfaf7 0%, #f0ebe3 100%);
   padding: 56px 24px;
   display: flex;
   flex-direction: column;
@@ -608,7 +609,7 @@ footer {
 
 /* ── Footer ── */
 .footer {
-  background: linear-gradient(135deg, #9a7860 0%, #6b4c38 100%);
+  background: linear-gradient(135deg, #8a7264 0%, #5a4030 100%);
   padding: 32px 24px;
   display: flex;
   flex-direction: column;

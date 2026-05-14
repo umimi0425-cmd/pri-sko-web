@@ -5,16 +5,17 @@
 }
 
 :root {
-  --primary: #9a7860;
-  --primary-light: #c4a882;
-  --brown-dark: #5a3c28;
-  --line-green: #06c755;
-  --bg-warm: #faf6f0;
-  --text-dark: #3d2b1f;
-  --text-medium: #6b4c38;
-  --text-light: #9e8268;
-  --text-muted: #c4a882;
-  --border: #e8ddd0;
+  --primary: #938271;
+  --primary-light: #c4b8aa;
+  --brown-dark: #4a3828;
+  --line-green: #21512d;
+  --cta-light: #e8f0e8;
+  --bg-warm: #fcfaf7;
+  --text-dark: #54473a;
+  --text-medium: #807467;
+  --text-light: #938271;
+  --text-muted: #a89e93;
+  --border: #dcd4ca;
   --error: #ef4444;
 }
 
@@ -23,7 +24,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Noto Sans JP', sans-serif;
   color: var(--text-dark);
-  background: #faf6f0;
+  background: #fcfaf7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -33,7 +34,7 @@ body {
   align-items: center;
   height: 56px;
   padding: 0 20px;
-  background: linear-gradient(to right, #d4bfa0, #9a7860);
+  background: linear-gradient(to right, #ddd4c8, #b8a898);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -78,7 +79,7 @@ body {
 
 /* ── Prefill notice ── */
 .prefill-notice {
-  background: #f0e8d8;
+  background: #ede6dc;
   border: 1px solid var(--primary-light);
   border-radius: 8px;
   padding: 10px 14px;
@@ -138,7 +139,7 @@ body {
 
 .input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(154, 120, 96, 0.15);
+  box-shadow: 0 0 0 3px rgba(147, 130, 113, 0.15);
 }
 
 .input.is-error {
@@ -180,7 +181,7 @@ body {
 }
 
 .btn-zip:hover {
-  background: #f0e4d4;
+  background: #ede6dc;
 }
 
 /* ── Error message ── */
@@ -306,7 +307,7 @@ body {
 .done-check {
   width: 72px;
   height: 72px;
-  background: linear-gradient(135deg, #c4a882, #9a7860);
+  background: linear-gradient(135deg, #c4b8aa, #938271);
   color: #fff;
   font-size: 32px;
   border-radius: 50%;
@@ -368,7 +369,7 @@ body {
   margin-top: 8px;
   height: 48px;
   padding: 0 32px;
-  background: linear-gradient(135deg, #9a7860, #7a5c44);
+  background: linear-gradient(135deg, #8a7264, #5a4030);
   color: #fff;
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 15px;
