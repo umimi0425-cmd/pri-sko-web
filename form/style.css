@@ -76,6 +76,17 @@ body {
   margin-bottom: 28px;
 }
 
+/* ── Prefill notice ── */
+.prefill-notice {
+  background: #f0e8d8;
+  border: 1px solid var(--primary-light);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--brown-dark);
+  margin-bottom: 20px;
+}
+
 /* ── Fields ── */
 .field {
   margin-bottom: 20px;

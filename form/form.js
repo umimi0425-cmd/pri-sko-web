@@ -9,10 +9,30 @@ liff.init({ liffId: LIFF_ID })
   .then(() => {
     if (liff.isLoggedIn()) return liff.getProfile();
   })
-  .then(profile => {
-    if (profile) lineUserId = profile.userId;
+  .then(async profile => {
+    if (!profile) return;
+    lineUserId = profile.userId;
+    const { data } = await db
+      .from('orders')
+      .select('name, kana, zip, prefecture, city, building, tel')
+      .eq('line_id', lineUserId)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+    if (data) prefillForm(data);
   })
   .catch(() => {});
+
+function prefillForm(data) {
+  document.getElementById('name').value       = data.name       || '';
+  document.getElementById('kana').value       = data.kana       || '';
+  document.getElementById('zip').value        = data.zip        || '';
+  document.getElementById('prefecture').value = data.prefecture || '';
+  document.getElementById('city').value       = data.city       || '';
+  document.getElementById('building').value   = data.building   || '';
+  document.getElementById('tel').value        = data.tel        || '';
+  document.getElementById('prefill-notice').classList.remove('hidden');
+}
 
 // ── 注文番号生成 ──
 function generateOrderId() {
