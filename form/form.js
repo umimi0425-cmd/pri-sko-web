@@ -170,9 +170,16 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   // LINEトークに送信
   let lineSuccess = false;
   if (liff.isInClient()) {
+    const address = [pref, city, building].filter(Boolean).join(' ');
     const messageText =
       `お届け先情報を受け付けました。\n\n` +
-      `注文番号：\n${orderId}\n\n` +
+      `注文番号：${orderId}\n\n` +
+      `【お届け先】\n` +
+      `お名前：${name}（${kana}）\n` +
+      `郵便番号：${zip}\n` +
+      `住所：${address}\n` +
+      `電話番号：${tel}\n\n` +
+      `内容に誤りがある場合は、このトークでご連絡ください。\n\n` +
       `入金完了後は、以下のURLからご報告ください。\n${paymentUrl}`;
     try {
       await liff.sendMessages([{ type: 'text', text: messageText }]);
@@ -190,6 +197,7 @@ document.getElementById('send-btn').addEventListener('click', async () => {
 document.getElementById('close-btn').addEventListener('click', () => {
   if (liff.isInClient()) liff.closeWindow();
 });
+
 
 // ── ヘルパー ──
 function setError(id, msg) {
