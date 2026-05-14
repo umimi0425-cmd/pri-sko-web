@@ -105,12 +105,35 @@ function validate() {
   return ok;
 }
 
-// ── フォーム送信 ──
-document.getElementById('delivery-form').addEventListener('submit', async (e) => {
+// ── フォーム → 確認画面へ ──
+document.getElementById('delivery-form').addEventListener('submit', (e) => {
   e.preventDefault();
   if (!validate()) return;
 
-  const btn = document.getElementById('submit-btn');
+  document.getElementById('conf-name').textContent     = document.getElementById('name').value.trim();
+  document.getElementById('conf-kana').textContent     = document.getElementById('kana').value.trim();
+  document.getElementById('conf-zip').textContent      = document.getElementById('zip').value.trim();
+  document.getElementById('conf-pref').textContent     = document.getElementById('prefecture').value;
+  document.getElementById('conf-city').textContent     = document.getElementById('city').value.trim();
+  document.getElementById('conf-tel').textContent      = document.getElementById('tel').value.trim();
+  const building = document.getElementById('building').value.trim();
+  document.getElementById('conf-building').textContent = building || '—';
+
+  document.getElementById('form-view').classList.add('hidden');
+  document.getElementById('confirm-view').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── 修正するボタン ──
+document.getElementById('back-btn').addEventListener('click', () => {
+  document.getElementById('confirm-view').classList.add('hidden');
+  document.getElementById('form-view').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── 確認画面 → 送信 ──
+document.getElementById('send-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('send-btn');
   btn.disabled = true;
   btn.textContent = '送信中...';
 
@@ -159,6 +182,7 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
     }
   }
 
+  document.getElementById('confirm-view').classList.add('hidden');
   showDone(orderId, paymentUrl, lineSuccess);
 });
 

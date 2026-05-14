@@ -84,10 +84,51 @@
           <p class="error-msg" id="err-tel"></p>
         </div>
 
-        <button type="submit" class="btn-submit" id="submit-btn">この内容で送信する</button>
-        <p class="form-note">送信するとLINEにお届け先情報が送られます。</p>
+        <button type="submit" class="btn-submit" id="submit-btn">確認する</button>
+        <p class="form-note">次の画面で入力内容を確認できます。</p>
 
       </form>
+    </div>
+
+    <!-- 確認画面 -->
+    <div id="confirm-view" class="hidden">
+      <p class="page-label">CONFIRM</p>
+      <h1 class="page-title">入力内容の確認</h1>
+      <p class="page-desc">以下の内容でよろしいですか？</p>
+
+      <div class="confirm-list">
+        <div class="confirm-row">
+          <p class="confirm-label">お名前</p>
+          <p class="confirm-value" id="conf-name"></p>
+        </div>
+        <div class="confirm-row">
+          <p class="confirm-label">フリガナ</p>
+          <p class="confirm-value" id="conf-kana"></p>
+        </div>
+        <div class="confirm-row">
+          <p class="confirm-label">郵便番号</p>
+          <p class="confirm-value" id="conf-zip"></p>
+        </div>
+        <div class="confirm-row">
+          <p class="confirm-label">都道府県</p>
+          <p class="confirm-value" id="conf-pref"></p>
+        </div>
+        <div class="confirm-row">
+          <p class="confirm-label">市区町村・番地</p>
+          <p class="confirm-value" id="conf-city"></p>
+        </div>
+        <div class="confirm-row" id="conf-building-row">
+          <p class="confirm-label">建物名</p>
+          <p class="confirm-value" id="conf-building"></p>
+        </div>
+        <div class="confirm-row">
+          <p class="confirm-label">電話番号</p>
+          <p class="confirm-value" id="conf-tel"></p>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="send-btn">この内容で送信する</button>
+      <button class="btn-back" id="back-btn">修正する</button>
     </div>
 
     <!-- 完了画面 -->

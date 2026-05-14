@@ -220,6 +220,64 @@ body {
   line-height: 1.6;
 }
 
+/* ── Confirm view ── */
+.confirm-list {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.confirm-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.confirm-row:last-child {
+  border-bottom: none;
+}
+
+.confirm-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  width: 96px;
+}
+
+.confirm-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.btn-back {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin-top: 12px;
+  background: transparent;
+  color: var(--text-light);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-back:hover {
+  background: var(--bg-warm);
+}
+
 /* ── Done view ── */
 .done-view {
   display: flex;
