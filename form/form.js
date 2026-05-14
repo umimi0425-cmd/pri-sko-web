@@ -24,6 +24,33 @@ function generateOrderId() {
   return `ORD-${date}-${time}-${rand}`;
 }
 
+// ── 電話番号 自動フォーマット ──
+function formatPhone(value) {
+  const d = value.replace(/\D/g, '');
+  if (/^0[5-9]0/.test(d)) {
+    if (d.length <= 3) return d;
+    if (d.length <= 7) return d.slice(0, 3) + '-' + d.slice(3);
+    return d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7, 11);
+  }
+  if (/^0[36]/.test(d)) {
+    if (d.length <= 2) return d;
+    if (d.length <= 6) return d.slice(0, 2) + '-' + d.slice(2);
+    return d.slice(0, 2) + '-' + d.slice(2, 6) + '-' + d.slice(6, 10);
+  }
+  if (d.length <= 3) return d;
+  if (d.length <= 7) return d.slice(0, 3) + '-' + d.slice(3);
+  return d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7, 11);
+}
+
+document.getElementById('tel').addEventListener('input', (e) => {
+  const pos = e.target.selectionStart;
+  const prev = e.target.value;
+  const formatted = formatPhone(prev);
+  e.target.value = formatted;
+  const diff = formatted.length - prev.length;
+  e.target.setSelectionRange(pos + diff, pos + diff);
+});
+
 // ── 郵便番号 → 住所自動入力 ──
 document.getElementById('zip-btn').addEventListener('click', async () => {
   const zip = document.getElementById('zip').value.replace(/-/g, '').trim();
