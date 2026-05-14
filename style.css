@@ -94,6 +94,7 @@ footer {
   width: 200px;
   height: auto;
   object-fit: contain;
+  margin-top: -6px;
 }
 
 .section-label {
@@ -517,6 +518,57 @@ footer {
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.75;
+}
+
+.pricing-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pricing-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--bg-beige);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.referral-card {
+  background: #fff8ec;
+  border: 1.5px solid #e8c87a;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.referral-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.referral-text {
+  font-size: 13px;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.referral-text strong {
+  color: #b07a00;
+}
+
+.pricing-tip {
+  background: var(--bg-beige);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text-medium);
+  line-height: 1.7;
+  text-align: center;
 }
 
 /* ── FAQ ── */
