@@ -1,5 +1,7 @@
 const LIFF_ID = '2010019541-j317IzH2';
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbw64qbX4u0Ekwt2ffA4-KiXrPmlMKOBggH1Vx6CCECUvoUCYVhQzUYf07qk5Li-VF-Jiw/exec';
+const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const orderId = new URLSearchParams(location.search).get('order_id') || '';
 let lineUserId = '';
@@ -25,13 +27,14 @@ document.getElementById('report-btn').addEventListener('click', async function()
   btn.disabled = true;
   btn.textContent = '送信中...';
 
-  try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: new URLSearchParams({ action: 'payment', orderId: orderId, lineUserId: lineUserId }),
-    });
-  } catch (e) {
+  const { error } = await db.from('orders')
+    .update({
+      payment_reported_at: new Date().toISOString(),
+      reporter_line_id: lineUserId || null,
+    })
+    .eq('order_id', orderId);
+
+  if (error) {
     btn.disabled = false;
     btn.textContent = '入金完了を報告する';
     alert('送信に失敗しました。もう一度お試しください。');

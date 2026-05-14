@@ -1,5 +1,7 @@
 const LIFF_ID = '2010019541-j317IzH2';
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbw64qbX4u0Ekwt2ffA4-KiXrPmlMKOBggH1Vx6CCECUvoUCYVhQzUYf07qk5Li-VF-Jiw/exec';
+const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let lineUserId = '';
 
@@ -94,23 +96,28 @@ document.getElementById('delivery-form').addEventListener('submit', async (e) =>
   const building = document.getElementById('building').value.trim();
   const tel      = document.getElementById('tel').value.trim();
 
-  const paymentUrl = `https://pri-sko-web.vercel.app/payment-report?order_id=${orderId}`;
+  const paymentUrl = `https://skinlabonline.inside-story.info/payment-report?order_id=${orderId}`;
 
-  // スプレッドシートに保存
-  try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: new URLSearchParams({ orderId, name, kana, zip, prefecture: pref, city, building, tel, lineUserId }),
-    });
-  } catch {
+  const { error } = await db.from('orders').insert({
+    order_id: orderId,
+    line_id: lineUserId,
+    name,
+    kana,
+    zip,
+    prefecture: pref,
+    city,
+    building,
+    tel,
+  });
+
+  if (error) {
     btn.disabled = false;
     btn.textContent = 'この内容で送信する';
     alert('送信に失敗しました。もう一度お試しください。');
     return;
   }
 
-  // LINEトークに送信（スプレッドシート保存成功後）
+  // LINEトークに送信
   let lineSuccess = false;
   if (liff.isInClient()) {
     const messageText =
