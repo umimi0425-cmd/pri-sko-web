@@ -419,7 +419,7 @@ footer {
 }
 
 .step-badge {
-  background: var(--primary);
+  background: #21512d;
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -443,7 +443,7 @@ footer {
 
 /* ── Pricing ── */
 .pricing {
-  background: linear-gradient(160deg, #6b5040 0%, #4a3428 100%);
+  background: #fff;
   padding: 48px 24px;
   display: flex;
   flex-direction: column;
@@ -452,11 +452,12 @@ footer {
 
 .pricing-sub {
   font-size: 13px;
-  color: var(--primary-light);
+  color: var(--text-medium);
 }
 
 .trial-card {
-  background: linear-gradient(135deg, #c4b8aa 0%, #938271 100%);
+  background: var(--bg-beige);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px 24px;
   display: flex;
@@ -466,7 +467,7 @@ footer {
 
 .trial-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.22);
+  background: #21512d;
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -477,23 +478,23 @@ footer {
 
 .trial-item {
   font-size: 14px;
-  color: #f5ede0;
+  color: var(--text-medium);
 }
 
 .trial-price {
   font-size: 44px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-dark);
   line-height: 1.1;
 }
 
 .trial-note {
   font-size: 12px;
-  color: #f5ede0;
+  color: var(--text-muted);
 }
 
 .price-row {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-gray);
   border-radius: 12px;
   padding: 16px 20px;
   display: flex;
@@ -503,24 +504,24 @@ footer {
 
 .price-item-name {
   font-size: 14px;
-  color: #e8d8c4;
+  color: var(--text-medium);
 }
 
 .price-item-val {
   font-size: 18px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-dark);
 }
 
 .pricing-disclaimer {
   font-size: 11px;
-  color: var(--primary-light);
+  color: var(--text-muted);
   line-height: 1.75;
 }
 
 /* ── FAQ ── */
 .faq {
-  background: #fff;
+  background: linear-gradient(160deg, #f7f3ee 0%, #ede6dc 100%);
   padding: 48px 24px;
   display: flex;
   flex-direction: column;
@@ -528,8 +529,7 @@ footer {
 }
 
 .faq-item {
-  background: var(--bg-gray);
-  border: 1px solid var(--border);
+  background: #fff;
   border-radius: 12px;
   padding: 18px 20px;
   display: flex;
@@ -644,6 +644,33 @@ footer {
 .footer-copy {
   font-size: 11px;
   color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Cat decorations ── */
+.cat-deco {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  height: 80px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cat-deco img {
+  position: absolute;
+  width: 80px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.cat-deco--right img {
+  right: 12px;
+  bottom: -10px;
+}
+
+.cat-deco--left img {
+  left: 12px;
+  bottom: -10px;
 }
 
 /* ── Responsive ── */
