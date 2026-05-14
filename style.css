@@ -646,6 +646,26 @@ footer {
   color: var(--text-muted);
 }
 
+/* ── Section head (label + heading + cat) ── */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-cat {
+  width: 90px;
+  height: auto;
+  flex-shrink: 0;
+}
+
 /* ── Cat decorations ── */
 .cat-deco {
   width: 100%;
