@@ -1,4 +1,4 @@
-const LIFF_ID = '2010019541-j317IzH2';
+const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
