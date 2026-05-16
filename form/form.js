@@ -209,8 +209,7 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     }
   }
 
-  document.getElementById('confirm-view').classList.add('hidden');
-  showDone(orderId, paymentUrl, lineSuccess);
+  location.href = `/form/thanks?order_id=${orderId}&line=${lineSuccess ? 1 : 0}`;
 });
 
 // ── 閉じるボタン ──
