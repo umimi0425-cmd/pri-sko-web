@@ -199,6 +199,11 @@ document.getElementById('send-btn').addEventListener('click', async () => {
         lineId: lineUserId || null,
         name,
         kana,
+        zip,
+        prefecture: pref,
+        city,
+        building: building || null,
+        paymentReportUrl: paymentUrl,
       },
     }),
   }).catch(function() {});
