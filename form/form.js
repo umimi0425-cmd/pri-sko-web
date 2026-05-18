@@ -1,6 +1,7 @@
 const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
+const CRM_LIFF_FORM = 'https://skinlabcrm-gezjnr2g.manus.space/api/trpc/webhook.liffForm';
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let lineUserId = '';
@@ -186,6 +187,21 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     alert('送信に失敗しました。もう一度お試しください。');
     return;
   }
+
+  // CRM に注文登録（失敗してもユーザーフローは止めない）
+  fetch(CRM_LIFF_FORM, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      json: {
+        orderId,
+        tel,
+        lineId: lineUserId || null,
+        name,
+        kana,
+      },
+    }),
+  }).catch(function() {});
 
   // LINEトークに送信
   let lineSuccess = false;
