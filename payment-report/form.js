@@ -32,38 +32,30 @@ document.getElementById('report-btn').addEventListener('click', async function()
   btn.textContent = '送信中...';
   errorEl.textContent = '';
 
-  // CRM Webhook に POST
-  let crmOk = false;
-  try {
-    const res = await fetch(CRM_WEBHOOK, {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        orderId: orderId,
-        note: '患者より入金報告',
-      }),
-    });
-    const data = await res.json();
-    crmOk = res.ok && data.success === true;
-  } catch (e) {
-    crmOk = false;
-  }
+  // Supabase を更新
+  const { error: dbError } = await db.from('orders')
+    .update({
+      payment_reported_at: new Date().toISOString(),
+      reporter_line_id: lineUserId || null,
+    })
+    .eq('order_id', orderId);
 
-  if (!crmOk) {
+  if (dbError) {
     btn.disabled = false;
     btn.textContent = '入金完了を報告する';
     errorEl.textContent = 'エラーが発生しました。もう一度お試しください。';
     return;
   }
 
-  // Supabase も更新
-  await db.from('orders')
-    .update({
-      payment_reported_at: new Date().toISOString(),
-      reporter_line_id: lineUserId || null,
-    })
-    .eq('order_id', orderId);
+  // CRM Webhook に POST（失敗してもユーザーフローは止めない）
+  fetch(CRM_WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      orderId: orderId,
+      note: '患者より入金報告',
+    }),
+  }).catch(function() {});
 
   document.getElementById('form-view').classList.add('hidden');
   document.getElementById('done-view').classList.remove('hidden');
