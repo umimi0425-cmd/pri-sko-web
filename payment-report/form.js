@@ -1,6 +1,8 @@
 const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
+const CRM_WEBHOOK = 'https://skinlabcrm-gezjnr2g.manus.space/api/webhook/paymentReport';
+
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const orderId = new URLSearchParams(location.search).get('order_id') || '';
@@ -24,22 +26,44 @@ liff.init({ liffId: LIFF_ID })
 
 document.getElementById('report-btn').addEventListener('click', async function() {
   const btn = document.getElementById('report-btn');
+  const errorEl = document.getElementById('report-error');
+
   btn.disabled = true;
   btn.textContent = '送信中...';
+  errorEl.textContent = '';
 
-  const { error } = await db.from('orders')
+  // CRM Webhook に POST
+  let crmOk = false;
+  try {
+    const res = await fetch(CRM_WEBHOOK, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        orderId: orderId,
+        note: '患者より入金報告',
+      }),
+    });
+    const data = await res.json();
+    crmOk = res.ok && data.success === true;
+  } catch (e) {
+    crmOk = false;
+  }
+
+  if (!crmOk) {
+    btn.disabled = false;
+    btn.textContent = '入金完了を報告する';
+    errorEl.textContent = 'エラーが発生しました。もう一度お試しください。';
+    return;
+  }
+
+  // Supabase も更新
+  await db.from('orders')
     .update({
       payment_reported_at: new Date().toISOString(),
       reporter_line_id: lineUserId || null,
     })
     .eq('order_id', orderId);
-
-  if (error) {
-    btn.disabled = false;
-    btn.textContent = '入金完了を報告する';
-    alert('送信に失敗しました。もう一度お試しください。');
-    return;
-  }
 
   document.getElementById('form-view').classList.add('hidden');
   document.getElementById('done-view').classList.remove('hidden');
