@@ -1,7 +1,7 @@
 const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
-const CRM_WEBHOOK = 'https://skinlabcrm-gezjnr2g.manus.space/api/webhook/paymentReport';
+const CRM_WEBHOOK = 'https://skinlabcrm-gezjnr2g.manus.space/api/trpc/webhook.paymentReport';
 
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -52,8 +52,10 @@ document.getElementById('report-btn').addEventListener('click', async function()
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      orderId: orderId,
-      note: '患者より入金報告',
+      json: {
+        orderId: orderId,
+        note: '入金報告',
+      },
     }),
   }).catch(function() {});
 
