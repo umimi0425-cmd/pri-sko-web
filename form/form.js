@@ -179,6 +179,7 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     city,
     building,
     tel,
+    status: 'payment_waiting',
   });
 
   if (error) {
