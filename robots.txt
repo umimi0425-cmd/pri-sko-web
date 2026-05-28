@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /form/
+Disallow: /payment-report/
+
+Sitemap: https://skinlabonline.inside-story.info/sitemap.xml
