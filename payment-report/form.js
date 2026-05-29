@@ -66,4 +66,5 @@ document.getElementById('report-btn').addEventListener('click', async function()
 
 document.getElementById('close-btn').addEventListener('click', function() {
   if (liff.isInClient()) liff.closeWindow();
+  location.href = 'https://skinlabonline.inside-story.info';
 });
