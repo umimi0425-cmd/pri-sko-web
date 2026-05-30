@@ -14,11 +14,9 @@ liff.init({ liffId: LIFF_ID })
     if (!profile) return;
     lineUserId = profile.userId;
     const { data } = await db
-      .from('orders')
+      .from('patients')
       .select('name, kana, zip, prefecture, city, building, tel')
       .eq('line_id', lineUserId)
-      .order('created_at', { ascending: false })
-      .limit(1)
       .single();
     if (data) prefillForm(data);
   })
@@ -169,15 +167,43 @@ document.getElementById('send-btn').addEventListener('click', async () => {
 
   const paymentUrl = `https://skinlabonline.inside-story.info/payment-report?order_id=${orderId}`;
 
-  const { error } = await db.from('orders').insert({
-    order_id: orderId,
-    line_id: lineUserId,
+  // patients upsert（telをキーに。line_idは取得できた場合のみ上書き）
+  const patientData = {
+    tel,
     name,
     kana,
     zip,
     prefecture: pref,
     city,
-    building,
+    building: building || null,
+    updated_at: new Date().toISOString(),
+  };
+  if (lineUserId) patientData.line_id = lineUserId;
+
+  const { data: patient, error: patientError } = await db
+    .from('patients')
+    .upsert(patientData, { onConflict: 'tel' })
+    .select('patient_id')
+    .single();
+
+  if (patientError) {
+    btn.disabled = false;
+    btn.textContent = 'この内容で送信する';
+    alert('送信に失敗しました。もう一度お試しください。');
+    return;
+  }
+
+  // orders INSERT（patient_idをセット）
+  const { error } = await db.from('orders').insert({
+    order_id: orderId,
+    patient_id: patient.patient_id,
+    line_id: lineUserId || null,
+    name,
+    kana,
+    zip,
+    prefecture: pref,
+    city,
+    building: building || null,
     tel,
     status: 'payment_waiting',
   });
