@@ -156,7 +156,6 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   btn.disabled = true;
   btn.textContent = '送信中...';
 
-  const orderId  = generateOrderId();
   const name     = document.getElementById('name').value.trim();
   const kana     = document.getElementById('kana').value.trim();
   const zip      = document.getElementById('zip').value.trim();
@@ -164,8 +163,6 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   const city     = document.getElementById('city').value.trim();
   const building = document.getElementById('building').value.trim();
   const tel      = document.getElementById('tel').value.trim();
-
-  const paymentUrl = `https://skinlabonline.inside-story.info/payment-report?order_id=${orderId}`;
 
   // patients upsert（telをキーに。line_idは取得できた場合のみ上書き）
   const patientData = {
@@ -193,27 +190,62 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     return;
   }
 
-  // orders INSERT（patient_idをセット）
-  const { error } = await db.from('orders').insert({
-    order_id: orderId,
-    patient_id: patient.patient_id,
-    line_id: lineUserId || null,
-    name,
-    kana,
-    zip,
-    prefecture: pref,
-    city,
-    building: building || null,
-    tel,
-    status: 'payment_waiting',
-  });
+  // B4Aが先のケース：住所未入力の既存ordersを検索
+  const { data: existingOrder } = await db
+    .from('orders')
+    .select('order_id')
+    .eq('patient_id', patient.patient_id)
+    .eq('status', 'address_pending')
+    .is('zip', null)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  if (error) {
+  let orderId;
+  let orderError;
+
+  if (existingOrder) {
+    // B4Aが先：既存ordersに住所を追記してpayment_waitingに更新
+    orderId = existingOrder.order_id;
+    const { error } = await db.from('orders').update({
+      line_id: lineUserId || null,
+      name,
+      kana,
+      zip,
+      prefecture: pref,
+      city,
+      building: building || null,
+      tel,
+      status: 'payment_waiting',
+    }).eq('order_id', orderId);
+    orderError = error;
+  } else {
+    // LIFFが先：新規INSERT
+    orderId = generateOrderId();
+    const { error } = await db.from('orders').insert({
+      order_id: orderId,
+      patient_id: patient.patient_id,
+      line_id: lineUserId || null,
+      name,
+      kana,
+      zip,
+      prefecture: pref,
+      city,
+      building: building || null,
+      tel,
+      status: 'payment_waiting',
+    });
+    orderError = error;
+  }
+
+  if (orderError) {
     btn.disabled = false;
     btn.textContent = 'この内容で送信する';
     alert('送信に失敗しました。もう一度お試しください。');
     return;
   }
+
+  const paymentUrl = `https://skinlabonline.inside-story.info/payment-report?order_id=${orderId}`;
 
   // CRM に注文登録（失敗してもユーザーフローは止めない）
   fetch(CRM_LIFF_FORM, {
