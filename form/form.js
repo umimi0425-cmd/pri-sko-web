@@ -1,7 +1,8 @@
 const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
-const CRM_LIFF_FORM = 'https://skinlabcrm-gezjnr2g.manus.space/api/trpc/webhook.liffForm';
+const CRM_LIFF_FORM = 'https://skinlab-reservation.vercel.app/api/trpc/webhook.liffForm';
+const LIFF_WEBHOOK_SECRET = '4c6444a3afb651b076b55a0d728c98703d22042a26eb2a6f7fe2c4db9aec84b9';
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let lineUserId = '';
@@ -253,15 +254,16 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       json: {
+        secret: LIFF_WEBHOOK_SECRET,
         orderId,
         tel,
-        lineId: lineUserId || null,
+        lineId: lineUserId || undefined,
         name,
         kana,
         zip,
         prefecture: pref,
         city,
-        building: building || null,
+        building: building || undefined,
         paymentReportUrl: paymentUrl,
       },
     }),

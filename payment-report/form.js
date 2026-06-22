@@ -1,7 +1,8 @@
 const LIFF_ID = '2010105129-8clJHsYL';
 const SUPABASE_URL = 'https://wurgbhvlrrdbcwpzkhrm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Vh8Fv5L5e8WOViMAt7KUg_7zNv7OFT';
-const CRM_WEBHOOK = 'https://skinlabcrm-gezjnr2g.manus.space/api/trpc/webhook.paymentReport';
+const CRM_WEBHOOK = 'https://skinlab-reservation.vercel.app/api/trpc/webhook.paymentReport';
+const WEBHOOK_SECRET = '80b17c78b7d35e56b12871df2e36a31b126ab421b4953178f182d88aa1e753d0';
 
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -53,6 +54,7 @@ document.getElementById('report-btn').addEventListener('click', async function()
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       json: {
+        secret: WEBHOOK_SECRET,
         orderId: orderId,
         note: '入金報告',
       },
