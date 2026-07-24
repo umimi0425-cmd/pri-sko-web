@@ -224,6 +224,14 @@ body {
   transform: none;
 }
 
+/* 受付終了ページは <a> に .btn-submit を流用するため、中央揃えと下線消しを足す */
+a.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .form-note {
   font-size: 11px;
   color: var(--text-muted);

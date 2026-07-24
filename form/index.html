@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お届け先の入力 | スキンラボオンライン</title>
+  <title>ご注文の受付方法が変わりました | スキンラボオンライン</title>
+  <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WZQG78HT');</script>
-  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/form/style.css">
@@ -21,139 +21,25 @@
   </header>
 
   <main class="wrap">
+    <p class="page-label">INFORMATION</p>
+    <h1 class="page-title">ご注文の受付方法が変わりました</h1>
+    <p class="page-desc">
+      こちらのお届け先入力フォームは受付を終了しました。<br>
+      ご注文・ご予約は、LINEの「ご予約・お申込み」からお手続きください。
+    </p>
 
-    <!-- 入力フォーム -->
-    <div id="form-view">
-      <p class="page-label">REGISTRATION</p>
-      <h1 class="page-title">LINE連携・お届け先住所の登録</h1>
-      <p class="page-desc">ご注文のお届け先、LINE連携の登録を行います。</p>
-      <p id="prefill-notice" class="prefill-notice hidden">前回のお届け先を自動入力しました。内容をご確認ください。</p>
+    <p class="prefill-notice">
+      お薬のご注文には、オンライン診療の受診が必要です。<br>
+      まだ受診されていない方は、あわせてご予約いただけます。
+    </p>
 
-      <form id="delivery-form" novalidate>
+    <a class="btn-submit" href="https://liff.line.me/2010105129-rPqt3TpR/apply">ご予約・お申込みへ進む</a>
 
-        <div class="field">
-          <label class="label" for="name">お名前（漢字）<span class="required">必須</span></label>
-          <input class="input" type="text" id="name" name="name" placeholder="五反田 花子" autocomplete="name" required>
-          <p class="error-msg" id="err-name"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="kana">フリガナ<span class="required">必須</span></label>
-          <input class="input" type="text" id="kana" name="kana" placeholder="ゴタンダ ハナコ" required>
-          <p class="error-msg" id="err-kana"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="zip">郵便番号<span class="required">必須</span></label>
-          <div class="zip-row">
-            <input class="input zip-input" type="tel" id="zip" name="zip" placeholder="123-4567" maxlength="8" required>
-            <button type="button" class="btn-zip" id="zip-btn">住所を検索</button>
-          </div>
-          <p class="error-msg" id="err-zip"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="prefecture">都道府県<span class="required">必須</span></label>
-          <select class="input input-select" id="prefecture" name="prefecture" required>
-            <option value="">選択してください</option>
-            <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
-            <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
-            <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
-            <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
-            <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
-            <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
-            <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
-            <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
-            <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
-            <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
-            <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
-            <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
-          </select>
-          <p class="error-msg" id="err-pref"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="city">市区町村・番地<span class="required">必須</span></label>
-          <input class="input" type="text" id="city" name="city" placeholder="渋谷区渋谷1-1-1" required>
-          <p class="error-msg" id="err-city"></p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="building">マンション・建物名<span class="optional">任意</span></label>
-          <input class="input" type="text" id="building" name="building" placeholder="◯◯マンション 101号室">
-        </div>
-
-        <div class="field">
-          <label class="label" for="tel">電話番号<span class="required">必須</span></label>
-          <input class="input" type="tel" id="tel" name="tel" placeholder="090-1234-5678" autocomplete="tel" required>
-          <p class="error-msg" id="err-tel"></p>
-        </div>
-
-        <button type="submit" class="btn-submit" id="submit-btn">確認する</button>
-        <p class="form-note">次の画面で入力内容を確認できます。</p>
-
-      </form>
-    </div>
-
-    <!-- 確認画面 -->
-    <div id="confirm-view" class="hidden">
-      <p class="page-label">CONFIRM</p>
-      <h1 class="page-title">入力内容の確認</h1>
-      <p class="page-desc">以下の内容でよろしいですか？</p>
-
-      <div class="confirm-list">
-        <div class="confirm-row">
-          <p class="confirm-label">お名前</p>
-          <p class="confirm-value" id="conf-name"></p>
-        </div>
-        <div class="confirm-row">
-          <p class="confirm-label">フリガナ</p>
-          <p class="confirm-value" id="conf-kana"></p>
-        </div>
-        <div class="confirm-row">
-          <p class="confirm-label">郵便番号</p>
-          <p class="confirm-value" id="conf-zip"></p>
-        </div>
-        <div class="confirm-row">
-          <p class="confirm-label">都道府県</p>
-          <p class="confirm-value" id="conf-pref"></p>
-        </div>
-        <div class="confirm-row">
-          <p class="confirm-label">市区町村・番地</p>
-          <p class="confirm-value" id="conf-city"></p>
-        </div>
-        <div class="confirm-row" id="conf-building-row">
-          <p class="confirm-label">建物名</p>
-          <p class="confirm-value" id="conf-building"></p>
-        </div>
-        <div class="confirm-row">
-          <p class="confirm-label">電話番号</p>
-          <p class="confirm-value" id="conf-tel"></p>
-        </div>
-      </div>
-
-      <button class="btn-submit" id="send-btn">この内容で送信する</button>
-      <button class="btn-back" id="back-btn">修正する</button>
-    </div>
-
-    <!-- 完了画面 -->
-    <div id="done-view" class="done-view hidden">
-      <div class="done-check">✓</div>
-      <h2 class="done-title">送信が完了しました。</h2>
-      <div class="done-order-box">
-        <p class="done-order-label">注文番号</p>
-        <p class="done-order-id" id="done-order-id"></p>
-      </div>
-      <p class="done-text" id="done-message"></p>
-      <p id="done-fallback" class="done-fallback hidden">
-        <a id="done-payment-link" class="done-payment-link" href="#"></a>
-      </p>
-      <button class="btn-close" id="close-btn">閉じる</button>
-    </div>
-
+    <p class="form-note">
+      ボタンが開かない場合は、LINEのトーク画面下部にあるメニューから「ご予約・お申込み」をお選びください。<br>
+      ご不明な点はLINEのトークからお問い合わせください。
+    </p>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/form/form.js"></script>
 </body>
 </html>
