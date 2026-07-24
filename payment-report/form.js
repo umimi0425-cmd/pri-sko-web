@@ -29,6 +29,9 @@ document.getElementById('report-btn').addEventListener('click', async function()
   const btn = document.getElementById('report-btn');
   const errorEl = document.getElementById('report-error');
 
+  // 誤タップ防止の確認ダイアログ（マイページの入金報告と同じ文言）
+  if (!window.confirm('ご入金は完了していますか？入金完了を報告します。')) return;
+
   btn.disabled = true;
   btn.textContent = '送信中...';
   errorEl.textContent = '';
@@ -57,6 +60,8 @@ document.getElementById('report-btn').addEventListener('click', async function()
         secret: WEBHOOK_SECRET,
         orderId: orderId,
         note: '入金報告',
+        // 顧客の自己申告＝実消込ではない。CRMは「入金報告あり」に置き、実確認はスタッフが行う。
+        selfReport: true,
       },
     }),
   }).catch(function() {});
