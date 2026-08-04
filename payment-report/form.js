@@ -29,8 +29,8 @@ document.getElementById('report-btn').addEventListener('click', async function()
   const btn = document.getElementById('report-btn');
   const errorEl = document.getElementById('report-error');
 
-  // 誤タップ防止の確認ダイアログ（マイページの入金報告と同じ文言）
-  if (!window.confirm('ご入金は完了していますか？入金完了を報告します。')) return;
+  // 誤タップ防止の確認ダイアログ（マイページの支払い報告と同じ文言。クレカ・振込どちらでも成立する中立表現）
+  if (!window.confirm('お支払いは完了していますか？完了を報告します。')) return;
 
   btn.disabled = true;
   btn.textContent = '送信中...';
@@ -46,7 +46,7 @@ document.getElementById('report-btn').addEventListener('click', async function()
 
   if (dbError) {
     btn.disabled = false;
-    btn.textContent = '入金完了を報告する';
+    btn.textContent = '支払い完了を報告する';
     errorEl.textContent = 'エラーが発生しました。もう一度お試しください。';
     return;
   }
